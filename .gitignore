@@ -5,7 +5,8 @@
 **__MACOSX**
 **/*.onnx
 camera_env/
-
+**/*.onnx
+**/*.pt
 
 working/03_3D_CV/models/
 working/03_3D_CV/stereo_data/

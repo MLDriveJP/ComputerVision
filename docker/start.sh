@@ -14,8 +14,7 @@ docker run \
     --shm-size=8G \
     --privileged \
     -v ${PARENT_DIR}/working:/kaggle/working \
-    -v ${PARENT_DIR}/input:/kaggle/input \
-    -v ${KITTI_DIR}:/kaggle/input/KITTI/ \
+    -v ${KITTI_DIR}:/kaggle/working/KITTI/ \
     -v ${PARENT_DIR}/README.md:/kaggle/README.md \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     --env DISPLAY=$DISPLAY \
