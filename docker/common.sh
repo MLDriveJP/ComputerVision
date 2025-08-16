@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # User Input
-IMAGE_NAME=my_cv
+IMAGE_NAME=computer_vision
 
 # Container Name
 CONTAINER_NAME=${IMAGE_NAME}_${HOSTNAME}
