@@ -7,6 +7,7 @@
 camera_env/
 **/*.onnx
 **/*.pt
+working/output/stereo_pcd*
 
 working/03_3D_CV/models/
 working/03_3D_CV/stereo_data/

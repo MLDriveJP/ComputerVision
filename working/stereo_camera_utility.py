@@ -503,3 +503,62 @@ def readObjectCalibFile(file_path):
 
     return calib_params
 
+
+def write_ply(file_path_save, points, colors):
+    # Set data size for ply
+    points = points.reshape(-1,3)
+    colors = colors.reshape(-1,3)
+    output = np.hstack([points, colors])
+    
+    ply_header = f'''ply
+    format ascii 1.0
+    element vertex {len(points)}
+    property float x
+    property float y
+    property float z
+    property uchar red
+    property uchar green
+    property uchar blue
+    end_header
+    '''    
+    
+    # Write to file
+    with open(file_path_save, 'wb') as f:
+        f.write(ply_header.encode('utf-8'))
+        np.savetxt(f, output, fmt='%f %f %f %d %d %d ')
+
+
+import open3d as o3d    
+
+
+def savePointCloudAsImage(pcd, file_path_save):
+    # Create the visualizer
+    vis = o3d.visualization.Visualizer()
+    vis.create_window(visible=False, width=1024, height=768) # vis.create_window(visible=False)
+
+    # Add geometry (e.g., point cloud)
+    vis.add_geometry(pcd)
+    vis.poll_events()
+    vis.update_renderer()
+
+    # Set the view parameters (camera settings)
+    view_control = vis.get_view_control()
+    view_control.set_zoom(0.01)
+    view_control.set_front([0, 0.01, 5])
+    view_control.set_lookat([0, 0.1, -10])
+    view_control.set_up([0, 0, -1])
+
+    # Alternative Camera Angle
+    #view_control.set_front([ 0.27028868132726824, -0.0036027827686225091, 0.96277258410420508 ])
+    #view_control.set_up([ -0.01446335938247148, 0.99986496068000874, 0.0078020279247221856 ])
+
+    # Update the visualization to reflect changes
+    vis.update_geometry(pcd)
+    vis.poll_events()
+    vis.update_renderer()
+
+    # Save the screenshot
+    vis.capture_screen_image(file_path_save)
+
+    # Close the visualizer window
+    vis.destroy_window()    
